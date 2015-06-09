@@ -1,0 +1,6 @@
+debian/tmp/usr/include/*/ustr*debug*.h
+debian/tmp/usr/include/ustr*debug*.h
+debian/tmp/usr/lib/*/libustr-debug-1.0.so
+debian/tmp/usr/lib/*/libustr-debug.a
+debian/tmp/usr/lib/*/libustr-debug.so
+debian/tmp/usr/lib/*/pkgconfig/ustr-debug.pc

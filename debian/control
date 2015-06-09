@@ -1,0 +1,69 @@
+Source: ustr
+Section: libs
+Priority: optional
+Maintainer: Vaclav Ovsik <vaclav.ovsik@i.cz>
+Build-Depends: autoconf (>=2.69), debhelper (>= 9), dh-autoreconf
+Standards-Version: 3.9.6
+Homepage: http://www.and.org/ustr/
+Vcs-Git: git://anonscm.debian.org/users/zito-guest/pkg-ustr.git
+Vcs-Browser: https://anonscm.debian.org/cgit/users/zito-guest/pkg-ustr.git
+
+Package: libustr-1.0-1
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Micro string library: shared library
+ ustr (Micro string library) is a string API for C. It has tiny overhead over
+ just plain strdup(), is much safer, is easier to use, is faster for many
+ operations, can be used with read-only or automatically allocated data. You
+ don't even need to link to the library to use it (so there are no
+ dependencies).
+ .
+ This package contains the shared library.
+
+Package: libustr-1.0-1-dbg
+Architecture: any
+Multi-Arch: same
+Section: debug
+Priority: extra
+Pre-Depends: ${misc:Pre-Depends}
+Depends: libustr-1.0-1 (= ${binary:Version}), ${misc:Depends}
+Description: Micro string library: debugging symbols
+ ustr (Micro string library) is a string API for C. It has tiny overhead over
+ just plain strdup(), is much safer, is easier to use, is faster for many
+ operations, can be used with read-only or automatically allocated data. You
+ don't even need to link to the library to use it (so there are no
+ dependencies).
+ .
+ This package contains debugging symbols for shared library.
+
+Package: libustr-dev
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Pre-Depends: ${misc:Pre-Depends}
+Depends: libustr-1.0-1 (= ${binary:Version}), libc6-dev, ${misc:Depends}
+Description: Micro string library: development stuff
+ ustr (Micro string library) is a string API for C. It has tiny overhead over
+ just plain strdup(), is much safer, is easier to use, is faster for many
+ operations, can be used with read-only or automatically allocated data. You
+ don't even need to link to the library to use it (so there are no
+ dependencies).
+ .
+ This package contains header files and static library needed to compile code
+ that uses ustr.
+
+Package: libustr-doc
+Architecture: all
+Section: doc
+Suggests: libustr-dev
+Depends: ${misc:Depends}
+Description: Micro string library: documentation
+ ustr (Micro string library) is a string API for C. It has tiny overhead over
+ just plain strdup(), is much safer, is easier to use, is faster for many
+ operations, can be used with read-only or automatically allocated data. You
+ don't even need to link to the library to use it (so there are no
+ dependencies).
+ .
+ This package provides HTML documentation and examples.

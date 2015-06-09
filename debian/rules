@@ -1,0 +1,46 @@
+#!/usr/bin/make -f
+
+-include /usr/share/topgit/tg2quilt.mk
+
+build_debug=${shell grep '^Package:.*debug' debian/control && echo 1}
+
+ifeq (${build_debug},)
+    build_target=all-opt
+    install_target=install-opt
+else
+    build_target=all all-shared
+    install_target=install
+endif
+
+
+%:
+	dh $@ --with autoreconf
+
+override_dh_auto_build:
+	${MAKE} ${build_target}
+
+override_dh_auto_install:
+	${MAKE} ${install_target} DESTDIR=debian/tmp \
+		libdir=\$${prefix}/lib/${DEB_HOST_MULTIARCH} \
+		bin_arch_prefix=${DEB_HOST_MULTIARCH}- \
+		includedir_arch=\$${includedir}/${DEB_HOST_MULTIARCH}
+
+override_dh_installdocs:
+	dh_installdocs -plibustr-1.0-1-dbg --link-doc=libustr-1.0-1
+	dh_installdocs -plibustr-dev --link-doc=libustr-1.0-1
+ifneq (${build_debug},)
+	dh_installdocs -plibustr-debug-1.0-1-dbg --link-doc=libustr-debug-1.0-1
+	dh_installdocs -plibustr-debug-dev --link-doc=libustr-debug-1.0-1
+endif
+	dh_installdocs
+
+override_dh_strip:
+	dh_strip -plibustr-1.0-1 --dbg-package=libustr-1.0-1-dbg
+ifneq (${build_debug},)
+	dh_strip -plibustr-debug-1.0-1 --dbg-package=libustr-debug-1.0-1-dbg
+endif
+	dh_strip --exclude=libustr-debug.a
+
+override_dh_clean:
+	test -f Makefile && fgrep -q maintainer-clean Makefile && ${MAKE} maintainer-clean || true
+	dh_clean
